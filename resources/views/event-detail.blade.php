@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +29,7 @@
     <!-- Navigation (Simplified) -->
     <nav
         class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center bg-white border-b sticky top-8 z-40 rounded-b-2xl shadow-sm">
-        <a href="index.html" class="flex items-center gap-2">
+        <a href="/" class="flex items-center gap-2">
             <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-lg">
                 AH</div>
             <span class="text-xl font-bold tracking-tight">AmikomEventHub</span>
@@ -125,7 +125,7 @@
                         </p>
                     </div>
                     <div>
-                        <a href="checkout.html"
+                        <a href="/checkout"
                             class="inline-block px-10 py-5 bg-white text-indigo-600 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-xl">
                             Pesan Sekarang
                         </a>

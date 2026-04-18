@@ -33,9 +33,11 @@
             <span class="text-xl font-bold tracking-tight">AmikomEventHub</span>
         </div>
         <div class="hidden md:flex gap-8 font-medium">
-            <a href="#" class="text-indigo-600">Jelajahi</a>
-            <a href="#" class="hover:text-indigo-600 transition">Kategori</a>
-            <a href="#" class="hover:text-indigo-600 transition">Tentang Kami</a>
+            <a href="/katalog" class="text-indigo-600">Jelajahi</a>
+            <a href="/katalog" class="hover:text-indigo-600 transition">Kategori</a>
+            <a href="/contact" class="hover:text-indigo-600 transition">Tentang Kami</a>
+            <a href="/profil" class="hover:text-indigo-600 transition">Profil</a>
+            <a href="/my-ticket" class="hover:text-indigo-600 transition">Tiketku</a>
         </div>
         <!-- <div class="flex gap-3">
             <button class="px-5 py-2.5 rounded-xl font-semibold hover:bg-slate-200 transition">Login</button>
@@ -62,14 +64,15 @@
             <div>
                 <h4 class="text-white font-bold mb-6">Navigasi</h4>
                 <ul class="space-y-4">
-                    <li><a href="#" class="hover:text-white transition">Home</a></li>
-                    <li><a href="#" class="hover:text-white transition">Semua Event</a></li>
-                    <li><a href="#" class="hover:text-white transition">Cara Bayar</a></li>
+                    <li><a href="/" class="hover:text-white transition">Home</a></li>
+                    <li><a href="/katalog" class="hover:text-white transition">Semua Event</a></li>
+                    <li><a href="/bantuan" class="hover:text-white transition">Cara Bayar</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-6">Hubungi Kami</h4>
                 <ul class="space-y-4">
+                    <li><a href="/contact" class="hover:text-white transition">Kontak Kami</a></li>
                     <li>support@eventtiket.com</li>
                     <li>+62 812 3456 7890</li>
                 </ul>

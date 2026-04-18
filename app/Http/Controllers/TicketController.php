@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function show($id){
+    public function show(){
         return view('ticket');
         }
 }

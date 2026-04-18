@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function show($id){
+    public function show(){
         return view('event-detail');
     }
-    public function checkout($id){
+    public function checkout(){
         return view('checkout');
     }
 }
