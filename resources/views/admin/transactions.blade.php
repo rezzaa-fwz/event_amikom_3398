@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+@section('page_title', 'Laporan ')
+@section('page_subtitle', 'Pantau arus kas dan penjualan tiket Anda.')
 <!DOCTYPE html>
 <html lang="en">
 
