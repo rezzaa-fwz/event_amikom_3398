@@ -51,7 +51,7 @@
     <!-- Footer -->
     <footer class="bg-indigo-900 text-indigo-100 py-20 px-6 mt-20">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
-            <div class="space-y-4 col-span-2">
+            <div class="space-y-4 col-span-1">
                 <div class="flex items-center gap-2">
                     <div
                         class="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-indigo-900 font-bold text-xl">
@@ -60,6 +60,15 @@
                 </div>
                 <p class="max-w-xs text-indigo-300">Platform reservasi tiket event online terbaik untuk mahasiswa dan
                     penyelenggara profesional.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-6">Kategori</h4>
+                <ul class="space-y-4">
+                    <li><a href="?category=seminar-it" class="hover:text-white transition">Seminar IT</a></li>
+                    <li><a href="?category=entertaiment" class="hover:text-white transition">Intertaiment</a></li>
+                    <li><a href="?category=workshop" class="hover:text-white transition">Workshop</a></li>
+                    <li><a href="?category=content-creator" class="hover:text-white transition">Conten Creator</a></li>
+                </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-6">Navigasi</h4>
