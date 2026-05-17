@@ -45,7 +45,7 @@ public function run(): void
         
         yang merdu.',
         
-        'date' => '2026-05-10 19:00:00',
+        'date' => '2026-05-30 19:00:00',
         'location' => 'Amikom Baru',
         'price' => 50000,
         'stock' => 100,
