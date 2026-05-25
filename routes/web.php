@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\TransactionsController;
 use App\Http\Controllers\EventController as PublicEventController;
 use App\Http\Controllers\HomeController;
@@ -35,6 +36,7 @@ Route::get('/ticket', [TicketController::class, 'show']);
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('events', EventController::class);
+    Route::resource('partners', PartnerController::class);
     Route::get('/transactions', [TransactionsController::class, 'index'])->name('transactions');
     Route::get('/categories', [CategoriesController::class, 'index'])->name('categories');
     Route::get('/categories/create', [CategoriesController::class, 'create'])->name('categories.create');

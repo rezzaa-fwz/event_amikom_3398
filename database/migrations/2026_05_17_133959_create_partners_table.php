@@ -12,10 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('partners', function (Blueprint $table) {
-            $table->id(); // id (Primary Key, Auto-increment) [cite: 22]
-            $table->string('name'); // name (String) [cite: 23]
-            $table->string('logo_url'); // logo_url (String) [cite: 24]
-            $table->timestamps(); // timestamps [cite: 26]
+            $table->id();
+            $table->string('name');
+            $table->string('logo_path')->nullable();
+            $table->text('description')->nullable();
+            $table->string('website')->nullable();
+            $table->string('contact_email')->nullable();
+            $table->string('contact_phone')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->timestamps();
         });
     }
 
