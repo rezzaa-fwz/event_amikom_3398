@@ -75,8 +75,8 @@ $message }}</span> @enderror
 
 uppercase tracking-wide">Tanggal & Waktu</label>
 
-<input type="datetime-local" name="date" value="{{ old('date',
-$event->date->format('Y-m-d\TH:i')) }}" class="w-full px-5 py-4 bg-slate-50
+<input type="datetime-local" name="date" 
+       value="{{ old('date', $event->date->format('Y-m-d\TH:i')) }}" class="w-full px-5 py-4 bg-slate-50
 border-2 border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/10
 focus:border-indigo-600 outline-none transition font-medium" required>
 

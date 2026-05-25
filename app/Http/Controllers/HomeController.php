@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;     // Cukup satu kali
-use App\Models\Category;  // Cukup satu kali
+use App\Models\Event;     
+use App\Models\Category;  
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -22,5 +22,9 @@ class HomeController extends Controller
             ->get();
 
         return view('welcome', compact('categories', 'events'));
+    }
+    public function profil()
+    {
+        return view('profile'); 
     }
 }

@@ -2,23 +2,32 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
-    //
-    protected $fillable = [
-        'category_id', 'title', 'description', 'date',
-        'location', 'price', 'stock', 'poster_path'
-        ];
-        
-        protected $casts = [
-        'date' => 'datetime',
-        ];
+    use HasFactory;
 
-        // Menandakan atribut: 1 Event harus terpaut pada satu wujud Kategori
-public function category()
-{
-return $this->belongsTo(Category::class);
-}
+    // Tambahkan baris ini untuk mengizinkan kolom diisi melalui form
+    protected $fillable = [
+    'category_id',
+    'title',
+    'description',
+    'date',
+    'location',
+    'price',
+    'stock',
+    'poster_path', // Cek apakah di database nama kolomnya poster_path atau poster
+    ];
+
+    protected $casts = [
+    'date' => 'datetime',
+    ];
+
+    // Relasi ke Category (supaya kategori bisa tampil di tabel)
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
