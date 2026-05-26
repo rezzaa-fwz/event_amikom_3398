@@ -14,12 +14,7 @@ return new class extends Migration
         Schema::create('partners', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('logo_path')->nullable();
-            $table->text('description')->nullable();
-            $table->string('website')->nullable();
-            $table->string('contact_email')->nullable();
-            $table->string('contact_phone')->nullable();
-            $table->boolean('is_active')->default(true);
+            $table->string('logo_url')->nullable();
             $table->timestamps();
         });
     }
