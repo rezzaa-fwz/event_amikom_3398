@@ -22,24 +22,26 @@ class PartnerController extends Controller
     public function create() { return view('admin.partners.create'); }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'logo' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Tambahkan 'required' di sini
+    ]);
 
-        $logo_url = null;
-        if ($request->hasFile('logo')) {
-            $logo_url = $request->file('logo')->store('partners', 'public');
-        }
-
+    if ($request->hasFile('logo')) {
+        $logo_url = $request->file('logo')->store('partners', 'public');
+        
         Partner::create([
             'name' => $request->name,
-            'logo_url' => $logo_url
+            'logo_url' => $logo_url // Sekarang ini tidak akan null karena sudah divalidasi
         ]);
 
         return redirect()->route('admin.partners.index')->with('success', 'Partner berhasil ditambahkan.');
     }
+    
+    // Jika flow gagal masuk ke hasFile (jarang terjadi jika divalidasi)
+    return back()->withErrors(['logo' => 'Logo wajib diunggah.']);
+}
 
     public function edit(Partner $partner) { return view('admin.partners.edit', compact('partner')); }
 
