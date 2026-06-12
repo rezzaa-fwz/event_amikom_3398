@@ -12,15 +12,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController; 
 use Illuminate\Http\Request;
 
-// ==========================================================
-// ROUTE HALAMAN PUBLIK / USER BIASA
-// ==========================================================
 Route::get('/', [HomeController::class,'index']);
 Route::get('/kontak', function () { return view('contact'); });
 Route::get('/profil', function () { return view('profil'); });
 Route::get('/katalog', function () { return view('catalog'); });
 Route::get('/bantuan', function () { return view('bantuan'); });
-Route::get('/event-detail/{id?}', [PublicEventController::class, 'show']);
+Route::get('/events/{event}', [\App\Http\Controllers\EventController::class, 'show'])->name('events.show');
 Route::get('/checkout', [PublicEventController::class, 'checkout']);
 Route::get('/ticket', [TicketController::class, 'show']);
 
