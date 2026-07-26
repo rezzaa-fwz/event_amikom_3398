@@ -14,12 +14,14 @@ use Illuminate\Http\Request;
 
 Route::get('/', [HomeController::class,'index']);
 Route::get('/kontak', function () { return view('contact'); });
-Route::get('/profil', function () { return view('profil'); });
+Route::get('/profil', function () { return view('profile'); });
 Route::get('/katalog', function () { return view('catalog'); });
 Route::get('/bantuan', function () { return view('bantuan'); });
 Route::get('/events/{event}', [\App\Http\Controllers\EventController::class, 'show'])->name('events.show');
 Route::get('/checkout', [PublicEventController::class, 'checkout']);
 Route::get('/ticket', [TicketController::class, 'show']);
+Route::get('/checkout/{event}', [App\Http\Controllers\CheckoutController::class, 'create'])->name('checkout.create');
+Route::post('/checkout/{event}', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
 
 
 
@@ -39,5 +41,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Tambahan route projek Anda (Ikut dimasukkan ke sini agar aman)
         Route::resource('partners', PartnerController::class);
         Route::resource('categories', CategoriesController::class)->names(['index' => 'categories']); 
+        Route::get('transactions', [\App\Http\Controllers\Admin\TransactionController::class, 'index'])->name('transactions.index');
     }); 
 });
