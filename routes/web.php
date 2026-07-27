@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController; 
 use Illuminate\Http\Request;
 
-Route::get('/', [HomeController::class,'index']);
+Route::get('/', [HomeController::class,'index'])->name('home');
 Route::get('/kontak', function () { return view('contact'); });
 Route::get('/profil', function () { return view('profile'); });
 Route::get('/katalog', function () { return view('catalog'); });
@@ -22,8 +22,8 @@ Route::get('/checkout', [PublicEventController::class, 'checkout']);
 Route::get('/ticket', [TicketController::class, 'show']);
 Route::get('/checkout/{event}', [App\Http\Controllers\CheckoutController::class, 'create'])->name('checkout.create');
 Route::post('/checkout/{event}', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
-
-
+Route::get('/payment/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'payment'])->name('checkout.payment');
+Route::get('/success/{order_id}', [\App\Http\Controllers\CheckoutController::class, 'success'])->name('checkout.success');
 
 Route::prefix('admin')->name('admin.')->group(function () {
     
