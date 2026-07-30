@@ -16,7 +16,13 @@ class EventController extends Controller
      */
     public function index(Request $request)
     {
-        $query = \App\Models\Event::with(['category', 'partner']);
+        $query = Event::with(['category', 'partner', 'organization']);
+
+        // Superadmin lihat semua event dari semua organization.
+        // Admin biasa cuma lihat event milik organization-nya sendiri.
+        if (! auth()->user()->isSuperAdmin()) {
+            $query->where('organization_id', auth()->user()->organization_id);
+        }
 
         // Search by title, location, or description
         if ($request->filled('search')) {
@@ -39,8 +45,8 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = \App\Models\Category::orderBy('name')->get();
-        $partners = \App\Models\Partner::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+        $partners = Partner::orderBy('name')->get();
         return view('admin.events.create', compact('categories', 'partners'));
     }
 
@@ -61,13 +67,16 @@ class EventController extends Controller
             'poster' => 'nullable|image|max:2048' // Maksimal 2MB
         ]);
 
+        // Event otomatis jadi milik organization user yang sedang login
+        $data['organization_id'] = auth()->user()->organization_id;
+
         if ($request->hasFile('poster')) {
             // Simpan ke direktori storage/app/public/posters
             $data['poster_path'] = $request->file('poster')->store('posters', 'public');
         }
 
         // Menyimpan data yang telah divalidasi ke dalam tabel menggunakan Model
-        \App\Models\Event::create($data);
+        Event::create($data);
 
         return redirect()->route('admin.events.index')->with('success', 'Data Event berhasil ditambahkan.');
     }
@@ -85,8 +94,10 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        $categories = \App\Models\Category::orderBy('name')->get();
-        $partners = \App\Models\Partner::orderBy('name')->get();
+        $this->authorizeOrganizationAccess($event);
+
+        $categories = Category::orderBy('name')->get();
+        $partners = Partner::orderBy('name')->get();
         return view('admin.events.edit', compact('event', 'categories', 'partners'));
     }
 
@@ -95,6 +106,8 @@ class EventController extends Controller
      */
     public function update(Request $request, Event $event)
     {
+        $this->authorizeOrganizationAccess($event);
+
         $data = $request->validate([
             'category_id' => 'required|exists:categories,id',
             'title' => 'required|string|max:255',
@@ -109,7 +122,7 @@ class EventController extends Controller
         if ($request->hasFile('poster')) {
             // Hapus gambar lama jika sebelumnya sudah memiliki poster
             if ($event->poster_path) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($event->poster_path);
+                Storage::disk('public')->delete($event->poster_path);
             }
             // Upload gambar baru
             $data['poster_path'] = $request->file('poster')->store('posters', 'public');
@@ -124,10 +137,27 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        $this->authorizeOrganizationAccess($event);
+
         if ($event->poster_path) {
             Storage::disk('public')->delete($event->poster_path);
         }
         $event->delete();
         return redirect()->route('admin.events.index')->with('success', 'Data event berhasil dihapus secara permanen.');
+    }
+
+    /**
+     * Cegah admin satu organization mengedit/menghapus event milik organization lain
+     * lewat manipulasi URL/ID secara manual. Superadmin dikecualikan dari pembatasan ini.
+     */
+    private function authorizeOrganizationAccess(Event $event): void
+    {
+        if (auth()->user()->isSuperAdmin()) {
+            return;
+        }
+
+        if ($event->organization_id !== auth()->user()->organization_id) {
+            abort(403, 'Anda tidak memiliki akses ke event ini.');
+        }
     }
 }

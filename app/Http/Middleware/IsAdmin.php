@@ -8,18 +8,25 @@ use Symfony\Component\HttpFoundation\Response;
 
 class IsAdmin
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
-public function handle(Request $request, Closure $next): Response
-{
-    // Cukup cek ini saja, karena urusan belum login sudah ditangani oleh 'auth' bawaan Laravel + redirectTo di bootstrap/app.php
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Anda bukan Admin!'); 
-    }
+    public function handle(Request $request, Closure $next): Response
+    {
+        $user = auth()->user();
 
-    return $next($request);
-}
+        if (! in_array($user->role, ['admin', 'superadmin'])) {
+            abort(403, 'Anda bukan Admin!');
+        }
+
+        // Superadmin tidak terikat organization, jadi dilewati dari pengecekan status.
+        if ($user->role === 'admin') {
+            $organization = $user->organization;
+
+            if (! $organization || $organization->status !== 'approved') {
+                auth()->logout();
+                return redirect()->route('admin.login')
+                    ->with('error', 'Organization Anda belum disetujui atau sedang ditangguhkan oleh Superadmin.');
+            }
+        }
+
+        return $next($request);
+    }
 }

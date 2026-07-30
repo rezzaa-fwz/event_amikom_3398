@@ -1,24 +1,21 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <title>Halaman Profil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-slate-100 flex items-center justify-center min-h-screen p-4">
-    <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-200 text-center max-w-md w-full transition duration-300 hover:shadow-xl">
-        <img src="https://ui-avatars.com/api/?name=Praktikan&background=4f46e5&color=fff&size=128" alt="Foto Profil" class="w-24 h-24 mx-auto rounded-full mb-4 border-4 border-indigo-100">
-        
-        <h1 class="text-2xl font-bold text-slate-800 mb-1">Nama Praktikan</h1>
-        <p class="text-indigo-600 font-medium text-sm mb-4">Mahasiswa / Web Developer</p>
-        <p class="text-slate-500 mb-8 text-sm leading-relaxed">Halo! Ini adalah halaman profil saya. Saya sedang mempelajari routing Laravel dan integrasi Tailwind CSS untuk AmikomEventHub.</p>
+@extends('layouts.main')
 
-        <div class="flex flex-wrap justify-center gap-2 border-t border-slate-100 pt-5">
-            <a href="/" class="text-xs bg-slate-100 text-slate-600 py-2 px-3 rounded-lg hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-300">Home</a>
-            <a href="/profil" class="text-xs bg-indigo-600 text-white py-2 px-3 rounded-lg shadow-md transition duration-300">Profil</a>
-            <a href="/katalog" class="text-xs bg-slate-100 text-slate-600 py-2 px-3 rounded-lg hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-300">Katalog</a>
-            <a href="/bantuan" class="text-xs bg-slate-100 text-slate-600 py-2 px-3 rounded-lg hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-300">Bantuan</a>
-            <a href="/kontak" class="text-xs bg-slate-100 text-slate-600 py-2 px-3 rounded-lg hover:bg-indigo-600 hover:text-white hover:shadow-md transition duration-300">Kontak</a>
+@section('title', 'Profil Saya - AmikomEventHub')
+
+@section('content')
+<div class="max-w-xl mx-auto px-6 py-12">
+    <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 text-center">
+        <img src="https://ui-avatars.com/api/?name=Praktikan&background=4f46e5&color=fff&size=128" alt="Foto Profil" class="w-24 h-24 mx-auto rounded-full mb-4 border-4 border-indigo-100 shadow-md">
+        
+        <h1 class="text-2xl font-extrabold text-slate-900 mb-1">Nama Praktikan</h1>
+        <p class="text-indigo-600 font-semibold text-sm mb-4">Mahasiswa / Web Developer</p>
+        <p class="text-slate-500 mb-8 text-sm leading-relaxed">Halo! Ini adalah halaman profil saya di AmikomEventHub. Platform event terbaik untuk reservasi tiket & seminar.</p>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-center gap-4">
+            <a href="{{ route('home') }}" class="px-6 py-2.5 bg-indigo-600 text-white font-semibold text-sm rounded-xl hover:bg-indigo-700 transition shadow-md shadow-indigo-200">
+                Kembali ke Beranda
+            </a>
         </div>
     </div>
-</body>
-</html>
+</div>
+@endsection

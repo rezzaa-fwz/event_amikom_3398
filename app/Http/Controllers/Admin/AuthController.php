@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     // 1. Fungsi menampilkan halaman view formulir
     public function showLogin() {
-        return view('auth.login');
+        return view('admin.auth.login');
      }
 
     public function login(Request $request) {        

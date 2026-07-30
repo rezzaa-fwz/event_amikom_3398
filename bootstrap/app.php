@@ -4,6 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\EnsureOrganizationApproved;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,7 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     
         // Daftarkan alias middleware kamu di sini
         $middleware->alias([
-            'admin' => IsAdmin::class,
+            'admin'        => IsAdmin::class,
+            'org.approved' => EnsureOrganizationApproved::class,
         ]);
 
         // Ini yang kita tambahkan di langkah sebelumnya (jika ada)
