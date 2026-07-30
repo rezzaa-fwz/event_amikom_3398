@@ -71,8 +71,12 @@ class EventController extends Controller
         $data['organization_id'] = auth()->user()->organization_id;
 
         if ($request->hasFile('poster')) {
-            // Simpan ke direktori storage/app/public/posters
-            $data['poster_path'] = $request->file('poster')->store('posters', 'public');
+            $cloudinaryUrl = \App\Services\CloudinaryService::upload($request->file('poster'), 'posters');
+            if ($cloudinaryUrl) {
+                $data['poster_path'] = $cloudinaryUrl;
+            } else {
+                $data['poster_path'] = $request->file('poster')->store('posters', 'public');
+            }
         }
 
         // Menyimpan data yang telah divalidasi ke dalam tabel menggunakan Model
@@ -120,12 +124,15 @@ class EventController extends Controller
         ]);
 
         if ($request->hasFile('poster')) {
-            // Hapus gambar lama jika sebelumnya sudah memiliki poster
-            if ($event->poster_path) {
-                Storage::disk('public')->delete($event->poster_path);
+            $cloudinaryUrl = \App\Services\CloudinaryService::upload($request->file('poster'), 'posters');
+            if ($cloudinaryUrl) {
+                $data['poster_path'] = $cloudinaryUrl;
+            } else {
+                if ($event->poster_path && ! str_starts_with($event->poster_path, 'http')) {
+                    Storage::disk('public')->delete($event->poster_path);
+                }
+                $data['poster_path'] = $request->file('poster')->store('posters', 'public');
             }
-            // Upload gambar baru
-            $data['poster_path'] = $request->file('poster')->store('posters', 'public');
         }
 
         $event->update($data);

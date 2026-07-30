@@ -41,11 +41,15 @@ class OrganizationProfileController extends Controller
         ]);
 
         if ($request->hasFile('logo')) {
-            // Hapus logo lama
-            if ($organization->logo_path) {
-                Storage::disk('public')->delete($organization->logo_path);
+            $cloudinaryUrl = \App\Services\CloudinaryService::upload($request->file('logo'), 'logos');
+            if ($cloudinaryUrl) {
+                $data['logo_path'] = $cloudinaryUrl;
+            } else {
+                if ($organization->logo_path && ! str_starts_with($organization->logo_path, 'http')) {
+                    Storage::disk('public')->delete($organization->logo_path);
+                }
+                $data['logo_path'] = $request->file('logo')->store('logos', 'public');
             }
-            $data['logo_path'] = $request->file('logo')->store('logos', 'public');
         }
 
         unset($data['logo']); // Jangan simpan field 'logo' ke DB
