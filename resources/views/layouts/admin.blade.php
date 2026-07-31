@@ -176,7 +176,7 @@
                     @if(auth()->user()->isSuperAdmin())
                         <span class="text-indigo-700 font-black text-sm">SA</span>
                     @elseif(auth()->user()->organization && auth()->user()->organization->logo_path)
-                        <img src="{{ (str_starts_with(auth( ?? '', 'http') ? auth( : Storage::url(auth())->user()->organization->logo_path) }}" class="w-full h-full object-cover">
+                        <img src="{{ (str_starts_with(auth()->user()->organization->logo_path ?? '', 'http') ? auth()->user()->organization->logo_path : Storage::url(auth()->user()->organization->logo_path)) }}" class="w-full h-full object-cover">
                     @else
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=6366f1&color=fff" class="rounded-2xl">
                     @endif
