@@ -41,29 +41,10 @@
             {{-- Left Column: Poster & Gallery Showcase --}}
             <div class="lg:col-span-6 space-y-4">
                 {{-- Main Big Poster Container --}}
-                <div class="relative overflow-hidden rounded-[2rem] bg-stone-100 border border-slate-100 aspect-[4/3] md:aspect-[1/1] shadow-sm flex items-center justify-center p-4">
-                    <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/600x600/f5f5f4/1c1917?text='.urlencode($event->title) }}" 
+                <div class="relative overflow-hidden rounded-[2rem] bg-stone-100 border border-slate-100 aspect-[3/4] shadow-sm flex items-center justify-center">
+                    <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/600x800/f5f5f4/1c1917?text='.urlencode($event->title) }}" 
                         alt="{{ $event->title }}" 
-                        class="w-full h-full object-contain rounded-2xl">
-                </div>
-
-                {{-- Thumbnail Gallery Preview --}}
-                <div class="grid grid-cols-5 gap-3">
-                    <div class="aspect-square rounded-2xl bg-stone-100 border-2 border-slate-900 overflow-hidden cursor-pointer p-1">
-                        <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/150x150/f5f5f4/1c1917' }}" class="w-full h-full object-cover rounded-xl">
-                    </div>
-                    <div class="aspect-square rounded-2xl bg-stone-100 border border-slate-200 overflow-hidden cursor-pointer opacity-70 hover:opacity-100 transition p-1">
-                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=300" class="w-full h-full object-cover rounded-xl">
-                    </div>
-                    <div class="aspect-square rounded-2xl bg-stone-100 border border-slate-200 overflow-hidden cursor-pointer opacity-70 hover:opacity-100 transition p-1">
-                        <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=300" class="w-full h-full object-cover rounded-xl">
-                    </div>
-                    <div class="aspect-square rounded-2xl bg-stone-100 border border-slate-200 overflow-hidden cursor-pointer opacity-70 hover:opacity-100 transition p-1">
-                        <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=300" class="w-full h-full object-cover rounded-xl">
-                    </div>
-                    <div class="aspect-square rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center font-bold text-xs text-slate-500 cursor-pointer hover:bg-slate-100 transition">
-                        +2 Foto
-                    </div>
+                        class="w-full h-full object-cover">
                 </div>
             </div>
 
