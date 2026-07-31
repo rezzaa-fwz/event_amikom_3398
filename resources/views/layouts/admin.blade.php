@@ -52,7 +52,7 @@
                         </div>
                     @endif
                     <div class="min-w-0">
-                        <p class="text-white font-bold text-xs truncate">{{ $org->name ?? 'Organisasi Saya' }}</p>
+                        <p class="text-white font-bold text-xs truncate">{{ $org->name ?? 'Belum Ada Organisasi' }}</p>
                         @if($org)
                             @if($org->status === 'approved')
                                 <span class="inline-block px-2 py-0.5 bg-green-400 text-green-900 rounded-full text-[10px] font-black mt-0.5">✓ AKTIF</span>
@@ -128,16 +128,18 @@
                 </a>
             @else
                 {{-- Profil Organisasi untuk admin tenant --}}
-                <div class="pt-4">
-                    <p class="text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-3 px-2">Organisasi</p>
-                </div>
-                <a href="{{ route('admin.org.profile') }}" class="nav-link {{ request()->routeIs('admin.org.profile') ? 'active' : '' }}">
-                    <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                    </svg>
-                    Profil Organisasi
-                </a>
+                @if(auth()->user()->organization)
+                    <div class="pt-4">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-indigo-500 mb-3 px-2">Organisasi</p>
+                    </div>
+                    <a href="{{ route('admin.org.profile') }}" class="nav-link {{ request()->routeIs('admin.org.profile') ? 'active' : '' }}">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        Profil Organisasi
+                    </a>
+                @endif
             @endif
             @endauth
         </nav>
