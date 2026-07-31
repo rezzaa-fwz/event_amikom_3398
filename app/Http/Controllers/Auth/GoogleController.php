@@ -89,11 +89,12 @@ class GoogleController extends Controller
                 ->with('error', 'Akun Google ini belum terdaftar sebagai Admin. Hubungi Superadmin untuk mendapatkan akses.');
         }
 
-        // Superadmin tidak terikat organization, dilewati dari cek status approval
         if ($user->role === 'admin') {
             $organization = $user->organization;
 
-            if (! $organization || $organization->status !== 'approved') {
+            // Jika punya organisasi tapi statusnya bukan approved, tolak. 
+            // Jika tidak punya organisasi (null), boleh lewat.
+            if ($organization && $organization->status !== 'approved') {
                 return redirect()->route('admin.login')
                     ->with('error', 'Organization Anda belum disetujui atau sedang ditangguhkan oleh Superadmin.');
             }

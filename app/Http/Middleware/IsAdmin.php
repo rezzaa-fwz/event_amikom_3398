@@ -16,11 +16,11 @@ class IsAdmin
             abort(403, 'Anda bukan Admin!');
         }
 
-        // Superadmin tidak terikat organization, jadi dilewati dari pengecekan status.
         if ($user->role === 'admin') {
             $organization = $user->organization;
 
-            if (! $organization || $organization->status !== 'approved') {
+            // Jika user punya organisasi dan statusnya bukan approved, tolak aksesnya
+            if ($organization && $organization->status !== 'approved') {
                 auth()->logout();
                 return redirect()->route('admin.login')
                     ->with('error', 'Organization Anda belum disetujui atau sedang ditangguhkan oleh Superadmin.');
