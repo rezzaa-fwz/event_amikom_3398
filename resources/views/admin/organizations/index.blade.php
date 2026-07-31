@@ -39,7 +39,7 @@
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center overflow-hidden flex-shrink-0">
                                 @if($org->logo_path)
-                                    <img src="{{ Storage::url($org->logo_path) }}" class="w-full h-full object-cover">
+                                    <img src="{{ (str_starts_with($org->logo_path ?? '', 'http') ? $org->logo_path : Storage::url($org->logo_path)) }}" class="w-full h-full object-cover">
                                 @else
                                     <span class="text-indigo-700 font-black text-xs">{{ strtoupper(substr($org->name, 0, 2)) }}</span>
                                 @endif

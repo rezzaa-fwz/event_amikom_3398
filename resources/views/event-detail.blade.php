@@ -42,7 +42,7 @@
             <div class="lg:col-span-6 space-y-4">
                 {{-- Main Big Poster Container --}}
                 <div class="relative overflow-hidden rounded-[2rem] bg-stone-100 border border-slate-100 aspect-[4/3] md:aspect-[1/1] shadow-sm flex items-center justify-center p-4">
-                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/600x600/f5f5f4/1c1917?text='.urlencode($event->title) }}" 
+                    <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/600x600/f5f5f4/1c1917?text='.urlencode($event->title) }}" 
                         alt="{{ $event->title }}" 
                         class="w-full h-full object-contain rounded-2xl">
                 </div>
@@ -50,7 +50,7 @@
                 {{-- Thumbnail Gallery Preview --}}
                 <div class="grid grid-cols-5 gap-3">
                     <div class="aspect-square rounded-2xl bg-stone-100 border-2 border-slate-900 overflow-hidden cursor-pointer p-1">
-                        <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/150x150/f5f5f4/1c1917' }}" class="w-full h-full object-cover rounded-xl">
+                        <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/150x150/f5f5f4/1c1917' }}" class="w-full h-full object-cover rounded-xl">
                     </div>
                     <div class="aspect-square rounded-2xl bg-stone-100 border border-slate-200 overflow-hidden cursor-pointer opacity-70 hover:opacity-100 transition p-1">
                         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=300" class="w-full h-full object-cover rounded-xl">
@@ -277,7 +277,7 @@
                                 <div class="flex gap-4 items-start border-b border-slate-100 pb-6">
                                     <div class="w-10 h-10 rounded-full bg-slate-100 overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-slate-600 text-xs">
                                         @if($review->user && $review->user->avatar_path)
-                                            <img src="{{ Storage::url($review->user->avatar_path) }}" class="w-full h-full object-cover">
+                                            <img src="{{ (str_starts_with($review->user->avatar_path ?? '', 'http') ? $review->user->avatar_path : Storage::url($review->user->avatar_path)) }}" class="w-full h-full object-cover">
                                         @else
                                             {{ strtoupper(substr($review->user->name ?? 'P', 0, 1)) }}
                                         @endif

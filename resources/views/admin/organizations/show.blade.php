@@ -15,7 +15,7 @@
 <div class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-3xl p-7 mb-8 flex items-center gap-6 shadow-lg">
     <div class="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden">
         @if($organization->logo_path)
-            <img src="{{ Storage::url($organization->logo_path) }}" class="w-full h-full object-cover rounded-2xl">
+            <img src="{{ (str_starts_with($organization->logo_path ?? '', 'http') ? $organization->logo_path : Storage::url($organization->logo_path)) }}" class="w-full h-full object-cover rounded-2xl">
         @else
             <span class="text-white font-black text-2xl">{{ strtoupper(substr($organization->name, 0, 2)) }}</span>
         @endif
@@ -88,7 +88,7 @@
             <div class="px-6 py-4 flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl bg-indigo-100 overflow-hidden flex-shrink-0">
                     @if($event->poster_path)
-                        <img src="{{ Storage::url($event->poster_path) }}" class="w-full h-full object-cover">
+                        <img src="{{ (str_starts_with($event->poster_path ?? '', 'http') ? $event->poster_path : Storage::url($event->poster_path)) }}" class="w-full h-full object-cover">
                     @else
                         <div class="w-full h-full flex items-center justify-center text-indigo-600">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>

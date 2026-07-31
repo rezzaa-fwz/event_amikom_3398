@@ -26,7 +26,7 @@
         <h3 class="text-lg font-bold text-slate-900 mb-6 pb-4 border-b border-slate-100">Pesanan Anda</h3>
         
         <div class="flex gap-4 items-center">
-            <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : (file_exists(public_path($event->poster_path ?? '')) ? asset($event->poster_path) : 'https://placehold.co/200x200') }}"
+            <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/200x200' }}"
                  alt="{{ $event->title }}" 
                  class="w-20 h-20 rounded-2xl object-cover shadow-xs flex-shrink-0">
             <div>

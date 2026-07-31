@@ -46,7 +46,7 @@
             <div class="flex items-center gap-6">
                 <div class="w-20 h-20 rounded-2xl bg-indigo-100 flex items-center justify-center overflow-hidden border-2 border-indigo-200 flex-shrink-0">
                     @if($org->logo_path)
-                        <img src="{{ Storage::url($org->logo_path) }}" id="logo-preview" class="w-full h-full object-cover">
+                        <img src="{{ (str_starts_with($org->logo_path ?? '', 'http') ? $org->logo_path : Storage::url($org->logo_path)) }}" id="logo-preview" class="w-full h-full object-cover">
                     @else
                         <img id="logo-preview" class="w-full h-full object-cover hidden">
                         <span id="logo-placeholder" class="text-indigo-700 font-black text-xl">{{ strtoupper(substr($org->name, 0, 2)) }}</span>

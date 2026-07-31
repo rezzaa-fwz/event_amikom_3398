@@ -58,7 +58,7 @@
         <td class="px-8 py-6">
             <div class="flex items-center gap-3">
                 @if($category->image)
-                    <img src="{{ asset('storage/' . $category->image) }}" class="w-10 h-10 rounded-lg object-cover">
+                    <img src="{{ (str_starts_with($category->image ?? '', 'http') ? $category->image : asset('storage/' . $category->image)) }}" class="w-10 h-10 rounded-lg object-cover">
                 @endif
                 <p class="font-black text-slate-800">{{ $category->name }}</p>
             </div>

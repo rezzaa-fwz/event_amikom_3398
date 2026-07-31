@@ -45,7 +45,7 @@
                 @php $org = auth()->user()->organization; @endphp
                 <div class="flex items-center gap-2.5">
                     @if($org && $org->logo_path)
-                        <img src="{{ Storage::url($org->logo_path) }}" class="w-9 h-9 rounded-xl object-cover flex-shrink-0 shadow">
+                        <img src="{{ (str_starts_with($org->logo_path ?? '', 'http') ? $org->logo_path : Storage::url($org->logo_path)) }}" class="w-9 h-9 rounded-xl object-cover flex-shrink-0 shadow">
                     @else
                         <div class="w-9 h-9 bg-indigo-500 rounded-xl flex items-center justify-center text-white font-black text-xs flex-shrink-0 shadow">
                             {{ strtoupper(substr($org->name ?? 'O', 0, 2)) }}
@@ -176,7 +176,7 @@
                     @if(auth()->user()->isSuperAdmin())
                         <span class="text-indigo-700 font-black text-sm">SA</span>
                     @elseif(auth()->user()->organization && auth()->user()->organization->logo_path)
-                        <img src="{{ Storage::url(auth()->user()->organization->logo_path) }}" class="w-full h-full object-cover">
+                        <img src="{{ (str_starts_with(auth( ?? '', 'http') ? auth( : Storage::url(auth())->user()->organization->logo_path) }}" class="w-full h-full object-cover">
                     @else
                         <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=6366f1&color=fff" class="rounded-2xl">
                     @endif

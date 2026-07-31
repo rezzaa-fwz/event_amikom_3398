@@ -11,7 +11,7 @@
         @if($partner->logo_url)
         <div class="mb-4">
             <label class="block text-sm font-bold text-slate-600 mb-2">Logo Saat Ini</label>
-            <img src="{{ asset('storage/' . $partner->logo_url) }}" class="w-24 h-24 rounded-xl object-contain border">
+            <img src="{{ (str_starts_with($partner->logo_url ?? '', 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" class="w-24 h-24 rounded-xl object-contain border">
         </div>
         @endif
 

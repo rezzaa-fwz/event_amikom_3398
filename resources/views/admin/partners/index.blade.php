@@ -45,7 +45,7 @@
     <td class="px-8 py-6">{{ $partners->firstItem() + $index }}</td>
     <td class="px-8 py-6">
         @if($partner->logo_url)
-            <img src="{{ asset('storage/' . $partner->logo_url) }}" class="w-20 h-20 rounded-xl object-contain border p-1">
+            <img src="{{ (str_starts_with($partner->logo_url ?? '', 'http') ? $partner->logo_url : asset('storage/' . $partner->logo_url)) }}" class="w-20 h-20 rounded-xl object-contain border p-1">
         @else
             <div class="w-20 h-20 bg-slate-100 rounded-xl flex items-center justify-center">No Logo</div>
         @endif

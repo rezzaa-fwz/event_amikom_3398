@@ -157,7 +157,7 @@ font-medium">
 
 @if($event->poster_path)
 <p class="text-sm text-slate-500 mt-2">Poster saat ini: <a
-href="{{ asset('storage/' . $event->poster_path) }}" target="_blank"
+href="{{ (str_starts_with($event->poster_path ?? '', 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) }}" target="_blank"
 class="text-indigo-600 hover:underline">Lihat</a></p>
 
 @endif

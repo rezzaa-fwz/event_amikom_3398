@@ -67,7 +67,7 @@
             @forelse($events as $event)
             <div class="group bg-white rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-300 overflow-hidden">
                 <div class="relative overflow-hidden aspect-[3/4]">
-                    <img src="{{ ($event->poster_path && Storage::disk('public')->exists($event->poster_path)) ? asset('storage/' . $event->poster_path) : 'https://placehold.co/200x600' }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <img src="{{ $event->poster_path ? (str_starts_with($event->poster_path, 'http') ? $event->poster_path : asset('storage/' . $event->poster_path)) : 'https://placehold.co/200x600' }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
                     <div class="absolute top-4 left-4 px-3 py-1 bg-white/90 backdrop-blur rounded-lg text-xs font-bold uppercase text-indigo-600">
                         {{ $event->category->name ?? 'Umum' }}</div>
                 </div>
@@ -108,7 +108,7 @@
             <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col items-center justify-center gap-3 hover:shadow-lg transition relative
                 @if($partner->name === 'AmikomEventHub') ring-2 ring-indigo-500 bg-indigo-50 @endif">
                 @if($partner->logo_path)
-                <img src="{{ asset('storage/' . $partner->logo_path) }}" alt="{{ $partner->name }}"
+                <img src="{{ (str_starts_with($partner->logo_path ?? '', 'http') ? $partner->logo_path : asset('storage/' . $partner->logo_path)) }}" alt="{{ $partner->name }}"
                     class="max-h-16 object-contain">
                 @else
                 <span class="text-slate-400 font-bold text-lg">{{ $partner->name }}</span>

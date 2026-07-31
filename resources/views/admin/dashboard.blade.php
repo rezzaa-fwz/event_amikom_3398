@@ -15,7 +15,7 @@
 <div class="bg-gradient-to-r from-indigo-600 to-violet-600 text-white rounded-3xl p-6 mb-8 flex items-center gap-5 shadow-lg">
     <div class="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center flex-shrink-0 overflow-hidden">
         @if($org->logo_path)
-            <img src="{{ Storage::url($org->logo_path) }}" class="w-full h-full object-cover rounded-2xl">
+            <img src="{{ (str_starts_with($org->logo_path ?? '', 'http') ? $org->logo_path : Storage::url($org->logo_path)) }}" class="w-full h-full object-cover rounded-2xl">
         @else
             <span class="text-white font-black text-xl">{{ strtoupper(substr($org->name, 0, 2)) }}</span>
         @endif
